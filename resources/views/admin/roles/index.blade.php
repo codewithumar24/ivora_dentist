@@ -18,7 +18,7 @@
                 @if($role->is_locked)<span class="badge badge-iris">Locked</span>@endif
             </div>
 
-            <p class="text-sm text-pine/65 leading-relaxed flex-1">{{ $role->description }}</p>
+            <p class="text-[0.95rem] text-pine/75 leading-relaxed flex-1">{{ $role->description }}</p>
 
             <dl class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-pine/8 text-center">
                 @foreach(['People' => $role->users_count, 'Permissions' => $role->permissions_count, 'Level' => $role->level] as $label => $value)

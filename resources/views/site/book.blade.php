@@ -22,7 +22,7 @@
             <div class="space-y-5">
 
                 {{-- Step 1: clinician --}}
-                <div class="card-flat p-6 lg:p-7">
+                <div class="reveal card-flat p-6 lg:p-7">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="w-8 h-8 rounded-full bg-pine text-mint font-mono text-xs grid place-items-center shrink-0">01</span>
                         <h2 class="font-display text-lg font-semibold">Who would you like to see?</h2>
@@ -45,7 +45,7 @@
                 </div>
 
                 {{-- Step 2: day + slot along the arch --}}
-                <div class="card-flat p-6 lg:p-7">
+                <div class="reveal card-flat p-6 lg:p-7">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="w-8 h-8 rounded-full bg-pine text-mint font-mono text-xs grid place-items-center shrink-0">02</span>
                         <h2 class="font-display text-lg font-semibold">When suits you?</h2>
@@ -65,7 +65,7 @@
                 </div>
 
                 {{-- Step 3: details --}}
-                <div class="card-flat p-6 lg:p-7">
+                <div class="reveal card-flat p-6 lg:p-7">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="w-8 h-8 rounded-full bg-pine text-mint font-mono text-xs grid place-items-center shrink-0">03</span>
                         <h2 class="font-display text-lg font-semibold">What is it for?</h2>
@@ -104,7 +104,7 @@
 
             {{-- Summary rail --}}
             <aside class="lg:sticky lg:top-24 space-y-4">
-                <div class="card-flat p-6">
+                <div class="reveal card-flat p-6">
                     <h2 class="font-display text-lg font-semibold mb-5">Your appointment</h2>
 
                     <div class="space-y-3.5 text-sm">
@@ -119,7 +119,7 @@
                     </div>
 
                     @if(!empty($settings['booking_note']))
-                        <p class="text-xs text-pine/60 leading-relaxed mt-5 pt-5 border-t border-pine/8">
+                        <p class="text-xs text-pine/70 leading-relaxed mt-5 pt-5 border-t border-pine/8">
                             {{ $settings['booking_note'] }}
                         </p>
                     @endif
@@ -136,7 +136,7 @@
                     @endguest
                 </div>
 
-                <div class="card-flat p-6 bg-mint/25 border-mint">
+                <div class="reveal card-flat p-6 bg-mint/25 border-mint">
                     <p class="text-sm font-medium mb-1.5">In pain right now?</p>
                     <p class="text-xs text-pine/70 leading-relaxed mb-4">
                         Do not wait for an online slot. Call us and we will fit you in today.

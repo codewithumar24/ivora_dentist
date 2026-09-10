@@ -8,32 +8,37 @@
 ])
 
 @php
-    $tones = [
-        'jade' => 'text-jade',
-        'pine' => 'text-pine',
-        'iris' => 'text-iris',
-        'amber' => 'text-amber-600',
-        'rose' => 'text-rose-600',
-    ];
+    // The gradient cap is set by tone; the text tone keeps the old API working
+    // for callers that only passed a colour name.
+    $capClass = match ($tone) {
+        'iris'  => 'tone-iris',
+        'amber' => 'tone-amber',
+        'rose'  => 'tone-rose',
+        default => '',
+    };
 @endphp
 
-<div {{ $attributes->merge(['class' => 'card-flat stat-card p-5 '.($tones[$tone] ?? 'text-jade')]) }}>
+<div {{ $attributes->merge(['class' => 'card-flat stat-card p-5 ' . $capClass]) }}>
     <div class="relative flex items-start justify-between gap-3">
         <div class="min-w-0">
-            <p class="eyebrow text-pine/45">{{ $label }}</p>
-            <p class="font-display text-3xl font-bold text-ink mt-2 leading-none">
+            <p class="eyebrow text-pine/55">{{ $label }}</p>
+
+            <p class="stat-figure mt-2.5">
                 @if($count)
                     <span data-count="{{ (float) str_replace(',', '', $value) }}">0</span>
                 @else
                     {{ $value }}
                 @endif
             </p>
+
             @if($hint)
-                <p class="text-xs text-pine/55 mt-2">{{ $hint }}</p>
+                <p class="mt-2 text-sm text-pine/70">{{ $hint }}</p>
             @endif
         </div>
-        <span class="w-9 h-9 rounded-xl grid place-items-center bg-current/10 shrink-0">
-            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icon }}"/></svg>
+
+        <span class="chip-icon">
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                 stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icon }}"/></svg>
         </span>
     </div>
 </div>

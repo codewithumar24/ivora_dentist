@@ -41,7 +41,7 @@
             @foreach($specialities as $speciality)
                 <div class="glass !bg-white/8 !border-white/12 rounded-2xl p-6 reveal">
                     <h3 class="font-display text-lg font-semibold text-porcelain mb-2.5">{{ $speciality->name }}</h3>
-                    <p class="text-sm text-porcelain/65 leading-relaxed">{{ $speciality->description }}</p>
+                    <p class="text-sm text-porcelain/80 leading-relaxed">{{ $speciality->description }}</p>
                 </div>
             @endforeach
         </div>

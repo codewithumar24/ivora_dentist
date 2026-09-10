@@ -42,7 +42,7 @@
             @forelse($doctor->schedules->sortBy('day_of_week') as $schedule)
                 <div class="flex justify-between text-sm py-1.5">
                     <span>{{ $schedule->day_name }}</span>
-                    <span class="font-mono text-xs text-pine/60">{{ $schedule->window }}</span>
+                    <span class="font-mono text-xs text-pine/70">{{ $schedule->window }}</span>
                 </div>
             @empty
                 <p class="text-sm text-pine/55">No hours set — this practitioner is not bookable.</p>

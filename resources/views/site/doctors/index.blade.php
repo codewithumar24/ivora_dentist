@@ -10,7 +10,7 @@
 
 <section class="py-14">
     <div class="max-w-shell mx-auto px-5">
-        <div class="flex flex-wrap gap-2 mb-10">
+        <div class="reveal flex flex-wrap gap-2 mb-10">
             <a href="{{ route('doctors.index') }}" class="btn btn-sm {{ !$active ? 'btn-primary' : 'btn-ghost' }}">Everyone</a>
             @foreach($specialities as $speciality)
                 <a href="{{ route('doctors.index', ['speciality' => $speciality->slug]) }}"
@@ -21,9 +21,9 @@
         @if($doctors->isEmpty())
             <x-ui.empty title="Nobody matched that filter" message="Try another speciality." />
         @else
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($doctors as $doctor)
-                    <x-site.doctor-card :doctor="$doctor" />
+                    <x-site.doctor-card :doctor="$doctor" data-delay="{{ ($loop->index % 3) * 90 }}" />
                 @endforeach
             </div>
             <div class="mt-12">{{ $doctors->links() }}</div>

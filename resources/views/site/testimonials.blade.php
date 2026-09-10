@@ -18,7 +18,7 @@
                             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 14 14"><path d="m7 1 1.8 3.7 4.1.6-3 2.9.7 4.1L7 10.4 3.4 12.3l.7-4.1-3-2.9 4.1-.6z"/></svg>
                         @endfor
                     </div>
-                    <blockquote class="text-[15px] leading-relaxed text-ink/85 flex-1">“{{ $testimonial->quote }}”</blockquote>
+                    <blockquote class="reveal text-[15px] leading-relaxed text-ink/85 flex-1">“{{ $testimonial->quote }}”</blockquote>
                     <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-pine/8">
                         <img src="{{ $testimonial->avatar_url }}" alt="" class="w-9 h-9 rounded-full object-cover">
                         <div>

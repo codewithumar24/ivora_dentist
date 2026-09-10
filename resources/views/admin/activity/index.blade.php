@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="space-y-5">
-    <form method="GET" class="card-flat p-4 flex flex-wrap gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex flex-wrap gap-3 items-end">
         <div class="flex-1 min-w-[200px]">
             <label class="field-label">Search</label>
             <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" class="field !py-2 !text-sm">
@@ -22,7 +22,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>When</th><th>Who</th><th>Action</th><th>Description</th><th>IP</th></tr></thead>
                 <tbody>

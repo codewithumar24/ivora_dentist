@@ -20,9 +20,32 @@
                                 <option value="1" @selected($setting->value == '1')>Yes</option>
                                 <option value="0" @selected($setting->value != '1')>No</option>
                             </select>
-                        @elseif($setting->type === 'image')
-                            @if($setting->value)<img src="{{ Str::startsWith($setting->value, 'http') ? $setting->value : asset('storage/'.$setting->value) }}" alt="" class="h-14 mb-2 rounded-lg">@endif
-                            <input type="file" name="files[{{ $setting->key }}]" id="s-{{ $setting->key }}" accept="image/*" class="field !py-2 text-sm">
+                        @elseif($setting->type === 'image' || $setting->type === 'video')
+                            @if($setting->value)
+                                <div class="mb-2.5 flex items-center gap-3">
+                                    @if($setting->type === 'video')
+                                        <video src="{{ \App\Models\Setting::media($setting->key) }}" class="h-16 rounded-lg bg-pine" muted playsinline></video>
+                                    @else
+                                        <img src="{{ \App\Models\Setting::media($setting->key) }}" alt="" class="h-16 rounded-lg border border-pine/10 bg-white object-contain p-1">
+                                    @endif
+
+                                    {{-- A wrong upload has to be undoable, or it is permanent. --}}
+                                    <label class="inline-flex cursor-pointer items-center gap-1.5 text-xs font-medium text-rose-600">
+                                        <input type="checkbox" name="clear[{{ $setting->key }}]" value="1" class="rounded border-pine/25">
+                                        Remove
+                                    </label>
+                                </div>
+                            @endif
+
+                            <input type="file" name="files[{{ $setting->key }}]" id="s-{{ $setting->key }}"
+                                   accept="{{ $setting->type === 'video' ? 'video/mp4,video/webm' : 'image/*' }}"
+                                   class="field !py-2 text-sm">
+
+                            @error('files.'.$setting->key)<p class="field-error">{{ $message }}</p>@enderror
+
+                            <p class="mt-1 text-[11px] text-pine/45">
+                                {{ $setting->type === 'video' ? 'MP4 or WebM, up to 20 MB. Keep it short and silent.' : 'JPG, PNG, WebP or SVG, up to 4 MB.' }}
+                            </p>
                         @else
                             <input name="settings[{{ $setting->key }}]" id="s-{{ $setting->key }}" value="{{ $setting->value }}" class="field">
                         @endif

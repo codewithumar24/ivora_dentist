@@ -10,7 +10,7 @@
 @php $currency = $settings['currency_symbol'] ?? 'Rs'; @endphp
 
 <div class="space-y-6">
-    <form method="GET" class="card-flat p-4 flex flex-wrap gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex flex-wrap gap-3 items-end">
         <div><label class="field-label">From</label><input type="date" name="from" value="{{ $from->toDateString() }}" class="field !py-2 !text-sm"></div>
         <div><label class="field-label">To</label><input type="date" name="to" value="{{ $to->toDateString() }}" class="field !py-2 !text-sm"></div>
         <button class="btn btn-primary btn-sm">Run report</button>

@@ -13,7 +13,7 @@
 
 @section('content')
 <div class="space-y-5">
-    <form method="GET" class="card-flat p-4 flex flex-wrap gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex flex-wrap gap-3 items-end">
         <div class="flex-1 min-w-[220px]">
             <label class="field-label">Search</label>
             <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Name, email or phone" class="field !py-2 !text-sm">
@@ -31,7 +31,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>MRN</th><th>Patient</th><th>Contact</th><th>Age</th><th>City</th><th>Visits</th><th>Status</th><th></th></tr></thead>
                 <tbody>

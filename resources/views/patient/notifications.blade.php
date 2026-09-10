@@ -20,7 +20,7 @@
 
                 <div class="flex-1 min-w-0">
                     <p class="text-sm font-medium">{{ $notification->data['headline'] ?? 'Update' }}</p>
-                    <p class="text-xs text-pine/60 mt-1">
+                    <p class="text-xs text-pine/70 mt-1">
                         {{ $notification->data['when'] ?? '' }}
                         @if(!empty($notification->data['doctor'])) · {{ $notification->data['doctor'] }} @endif
                     </p>

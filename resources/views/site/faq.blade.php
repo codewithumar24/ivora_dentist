@@ -10,7 +10,7 @@
 
 <section class="py-16">
     <div class="max-w-shell mx-auto px-5 grid lg:grid-cols-[220px_1fr] gap-12">
-        <nav class="lg:sticky lg:top-24 self-start">
+        <nav class="reveal lg:sticky lg:top-24 self-start">
             <p class="eyebrow text-pine/45 mb-4">Topics</p>
             <ul class="space-y-1.5 text-sm">
                 @foreach($groups as $category => $items)
@@ -21,7 +21,7 @@
 
         <div class="space-y-14">
             @foreach($groups as $category => $items)
-                <div id="{{ Str::slug($category) }}" class="scroll-mt-28">
+                <div id="{{ Str::slug($category) }}" class="reveal scroll-mt-28">
                     <h2 class="font-display text-2xl font-semibold mb-6">{{ $category }}</h2>
                     <div data-accordion class="card-flat divide-y divide-pine/8">
                         @foreach($items as $faq)
@@ -39,9 +39,9 @@
                 </div>
             @endforeach
 
-            <div class="card-flat p-8 bg-pine text-porcelain">
+            <div class="reveal card-flat p-8 bg-pine text-porcelain">
                 <h3 class="font-display text-xl font-semibold mb-2">Still unsure?</h3>
-                <p class="text-porcelain/70 text-sm mb-6">Call reception on {{ $settings['phone'] ?? '' }} or send a message — we answer within one working day.</p>
+                <p class="text-porcelain/80 text-sm mb-6">Call reception on {{ $settings['phone'] ?? '' }} or send a message — we answer within one working day.</p>
                 <a href="{{ route('contact') }}" class="btn btn-light btn-sm">Contact us</a>
             </div>
         </div>

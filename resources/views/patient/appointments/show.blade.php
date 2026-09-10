@@ -16,7 +16,7 @@
                     <p class="font-display text-3xl font-bold text-porcelain leading-tight">
                         {{ $appointment->scheduled_on->format('l j F') }}<br>{{ $appointment->starts_at_carbon->format('g:i A') }}
                     </p>
-                    <p class="text-porcelain/70 mt-3">{{ $appointment->service?->name ?? 'Consultation' }}</p>
+                    <p class="text-porcelain/80 mt-3">{{ $appointment->service?->name ?? 'Consultation' }}</p>
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -49,7 +49,7 @@
             @if($appointment->reason || $appointment->symptoms)
                 <div class="mt-6 pt-5 border-t border-pine/8">
                     <p class="eyebrow text-pine/45 mb-2">What you told us</p>
-                    <p class="text-sm text-pine/75 leading-relaxed">{{ $appointment->symptoms ?: $appointment->reason }}</p>
+                    <p class="text-[0.95rem] text-pine/75 leading-relaxed">{{ $appointment->symptoms ?: $appointment->reason }}</p>
                 </div>
             @endif
         </x-ui.panel>
@@ -117,7 +117,7 @@
             </x-ui.panel>
         @else
             <x-ui.panel title="Need to change it?">
-                <p class="text-sm text-pine/65 leading-relaxed">
+                <p class="text-[0.95rem] text-pine/75 leading-relaxed">
                     Online changes close {{ config('clinic.cancel_window_hours') }} hours before the visit.
                     Call reception and we will sort it out.
                 </p>
@@ -134,7 +134,7 @@
         @endif
 
         <x-ui.panel title="Getting here">
-            <p class="text-sm text-pine/75 leading-relaxed">{{ $settings['address'] ?? '' }}</p>
+            <p class="text-[0.95rem] text-pine/75 leading-relaxed">{{ $settings['address'] ?? '' }}</p>
             <p class="text-xs text-pine/55 mt-3">Please arrive ten minutes early if this is a first visit.</p>
         </x-ui.panel>
     </aside>

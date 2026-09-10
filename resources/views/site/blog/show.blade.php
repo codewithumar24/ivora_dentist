@@ -32,7 +32,7 @@
             <img src="{{ $post->cover_url }}" alt="" class="w-full h-full object-cover">
         </div>
 
-        <div class="prose-ivora text-[17px] pb-16">
+        <div class="reveal prose-ivora text-[17px] pb-16">
             @foreach(preg_split('/\n\s*\n/', $post->body) as $paragraph)
                 <p>{!! nl2br(e(trim($paragraph))) !!}</p>
             @endforeach

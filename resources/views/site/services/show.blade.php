@@ -42,7 +42,7 @@
             </div>
 
             @if($service->includes)
-                <div class="card-flat p-7 mt-10 max-w-2xl">
+                <div class="reveal card-flat p-7 mt-10 max-w-2xl">
                     <h3 class="font-display text-lg font-semibold mb-5">Included in the price</h3>
                     <ul class="grid sm:grid-cols-2 gap-3">
                         @foreach($service->includes as $item)
@@ -85,7 +85,7 @@
         </div>
 
         <aside class="space-y-5 lg:sticky lg:top-24 self-start">
-            <div class="card-flat p-6">
+            <div class="reveal card-flat p-6">
                 <p class="eyebrow text-pine/45 mb-3">Price</p>
                 <p class="font-display text-2xl font-bold">{{ $service->price_label }}</p>
                 <p class="text-xs text-pine/55 mt-2 leading-relaxed">
@@ -95,7 +95,7 @@
             </div>
 
             @if($related->isNotEmpty())
-                <div class="card-flat p-6">
+                <div class="reveal card-flat p-6">
                     <h3 class="font-display font-semibold mb-4">Related treatments</h3>
                     <ul class="space-y-3">
                         @foreach($related as $item)

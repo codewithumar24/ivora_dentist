@@ -33,4 +33,25 @@ class Setting extends Model
     {
         static::updateOrCreate(['key' => $key], ['value' => $value]);
     }
+
+    /**
+     * URL for an uploaded media setting, falling back to a bundled asset.
+     *
+     * Uploads are stored on the public disk, so they need asset('storage/...'),
+     * while the shipped defaults live in public/images. Callers should not have
+     * to know which of the two they are getting — hence this.
+     *
+     * Returns null when there is neither, so a view can decide whether to render
+     * the element at all instead of emitting a broken <img>.
+     */
+    public static function media(string $key, ?string $fallback = null): ?string
+    {
+        $value = static::get($key);
+
+        if (! $value) {
+            return $fallback ? asset($fallback) : null;
+        }
+
+        return str_starts_with($value, 'http') ? $value : asset('storage/' . $value);
+    }
 }

@@ -19,7 +19,7 @@
 @section('content')
 <div class="space-y-5">
 
-    <form method="GET" class="card-flat p-4 grid sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 grid sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
         <div class="lg:col-span-2">
             <label class="field-label">Search</label>
             <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Reference or patient" class="field !py-2 !text-sm">
@@ -53,7 +53,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead>
                     <tr><th>Reference</th><th>When</th><th>Patient</th><th>Practitioner</th><th>Treatment</th><th>Status</th><th>Fee</th><th></th></tr>

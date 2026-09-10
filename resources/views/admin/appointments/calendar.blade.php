@@ -28,7 +28,7 @@
                     <a href="{{ route('admin.appointments.show', $appointment) }}"
                        class="block p-2.5 rounded-xl bg-porcelain hover:bg-mint/35 transition border-l-[3px] border-l-{{ $appointment->status_tone === 'jade' ? 'jade' : 'pine' }}"
                        style="border-left-color: {{ ['jade' => '#1C7A6E', 'pine' => '#10403B', 'amber' => '#E8B33C', 'rose' => '#D9736A', 'slate' => '#9BB0AC'][$appointment->status_tone] ?? '#10403B' }}">
-                        <p class="font-mono text-[11px] text-pine/60">{{ \Illuminate\Support\Carbon::parse($appointment->starts_at)->format('g:i A') }}</p>
+                        <p class="font-mono text-[11px] text-pine/70">{{ \Illuminate\Support\Carbon::parse($appointment->starts_at)->format('g:i A') }}</p>
                         <p class="text-xs font-medium truncate mt-0.5">{{ $appointment->patient->name }}</p>
                         <p class="text-[11px] text-pine/50 truncate">{{ Str::before($appointment->doctor->full_name, ' ') }} {{ Str::after($appointment->doctor->full_name, ' ') }}</p>
                     </a>

@@ -35,7 +35,7 @@
 <section class="py-14">
     <div class="max-w-shell mx-auto px-5">
         <form method="GET" class="flex flex-wrap items-center gap-3 mb-10">
-            <div class="flex flex-wrap gap-2 flex-1">
+            <div class="reveal flex flex-wrap gap-2 flex-1">
                 <a href="{{ route('blog.index') }}" class="btn btn-sm {{ !$active ? 'btn-primary' : 'btn-ghost' }}">All</a>
                 @foreach($categories as $category)
                     <a href="{{ route('blog.index', ['category' => $category->slug]) }}"

@@ -280,3 +280,73 @@
     });
   });
 })();
+
+/* ---------------------------------------------------------------------------
+   Password visibility toggle on the sign-in screens.
+   Delegated, so it covers fields rendered after load too. No dependency —
+   the button is inert until this runs, which is the right failure mode.
+   --------------------------------------------------------------------------- */
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-toggle-password]');
+  if (!button) return;
+
+  const input = document.getElementById(button.dataset.togglePassword);
+  if (!input) return;
+
+  const reveal = input.type === 'password';
+  input.type = reveal ? 'text' : 'password';
+
+  button.setAttribute('aria-pressed', String(reveal));
+  button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+
+  button.querySelector('[data-eye-open]')?.classList.toggle('hidden', reveal);
+  button.querySelector('[data-eye-shut]')?.classList.toggle('hidden', !reveal);
+
+  // Keep the caret where the patient left it rather than jumping to the start.
+  const end = input.value.length;
+  input.focus();
+  input.setSelectionRange(end, end);
+});
+
+/* ---------------------------------------------------------------------------
+   Console sidebar: collapsible groups.
+   Heights are measured and set in pixels because `height: auto` cannot be
+   transitioned; the value is cleared once the group is open so a long list can
+   still grow if the viewport changes.
+   --------------------------------------------------------------------------- */
+(() => {
+  const sections = document.querySelectorAll('[data-nav-group]');
+  if (!sections.length) return;
+
+  const panelOf = (section) => section.querySelector('[data-nav-panel]');
+
+  const open = (section) => {
+    const panel = panelOf(section);
+    section.classList.add('is-open');
+    section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', 'true');
+    panel.style.height = `${panel.scrollHeight}px`;
+    panel.addEventListener('transitionend', function done() {
+      panel.style.height = 'auto';
+      panel.removeEventListener('transitionend', done);
+    });
+  };
+
+  const close = (section) => {
+    const panel = panelOf(section);
+    panel.style.height = `${panel.scrollHeight}px`;
+    requestAnimationFrame(() => {
+      panel.style.height = '0px';
+      section.classList.remove('is-open');
+      section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  sections.forEach((section) => {
+    // The group holding the current page is rendered open by the server.
+    if (section.classList.contains('is-open')) panelOf(section).style.height = 'auto';
+
+    section.querySelector('[data-nav-toggle]').addEventListener('click', () => {
+      section.classList.contains('is-open') ? close(section) : open(section);
+    });
+  });
+})();

@@ -5,6 +5,6 @@
         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $icon }}"/></svg>
     </span>
     <p class="font-display text-lg font-semibold">{{ $title }}</p>
-    @if($message)<p class="text-sm text-pine/60 mt-1.5 max-w-sm mx-auto">{{ $message }}</p>@endif
+    @if($message)<p class="text-sm text-pine/70 mt-1.5 max-w-sm mx-auto">{{ $message }}</p>@endif
     @if(trim($slot))<div class="mt-5">{{ $slot }}</div>@endif
 </div>

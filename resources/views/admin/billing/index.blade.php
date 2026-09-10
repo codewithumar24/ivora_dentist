@@ -22,7 +22,7 @@
         <x-ui.stat label="This month" :value="$currency.' '.number_format($totals['this_month'])" tone="iris" icon="M4 16V8M8 16V4M12 16v-6M16 16v-9" />
     </div>
 
-    <form method="GET" class="card-flat p-4 flex flex-wrap gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex flex-wrap gap-3 items-end">
         <div class="flex-1 min-w-[200px]">
             <label class="field-label">Search</label>
             <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Invoice number or patient" class="field !py-2 !text-sm">
@@ -41,7 +41,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>Invoice</th><th>Patient</th><th>Issued</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th></th></tr></thead>
                 <tbody>

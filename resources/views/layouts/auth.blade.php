@@ -3,62 +3,66 @@
 <head>
     @include('layouts.partials.head')
 </head>
-<body class="bg-porcelain text-ink">
+<body class="bg-white text-ink">
 
-<div class="min-h-screen grid lg:grid-cols-[1fr_.85fr]">
+<div class="min-h-screen grid lg:grid-cols-2">
 
-    {{-- Form side --}}
-    <div class="flex flex-col px-5 sm:px-10 lg:px-16 py-8">
-        <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-pine mb-auto">
-            <span class="w-9 h-9"><img src="{{ asset('assets/img/logo-mark.svg') }}" alt="" class="w-full h-full"></span>
-            <span class="leading-none">
-                <span class="block font-display text-lg font-bold">Ivora</span>
-                <span class="block font-mono text-[9px] tracking-[.22em] uppercase opacity-60">Dental Studio</span>
-            </span>
-        </a>
+    {{-- Form column. Crest first, so a patient knows whose door this is
+         before reading a word. --}}
+    <section class="flex flex-col px-5 py-10 sm:px-10 lg:px-16">
+        <div class="w-full max-w-md mx-auto my-auto">
+            <a href="{{ route('home') }}" class="enter flex flex-col items-center gap-3 text-center mb-9">
+                <img src="{{ \App\Models\Setting::media('logo', 'images/zynera-logo.png') }}"
+                     alt="{{ $settings['clinic_name'] ?? 'Dental studio' }}"
+                     class="h-20 w-auto object-contain float-slow">
+                <span class="font-mono text-[10px] tracking-[.24em] uppercase text-pine/50">
+                    {{ $settings['clinic_name'] ?? 'Dental Studio' }}
+                </span>
+            </a>
 
-        <div class="w-full max-w-md mx-auto py-12">
             @if(session('status'))
-                <div class="card-flat px-4 py-3 mb-6 border-l-4 border-l-jade text-sm">{{ session('status') }}</div>
+                <p class="auth-note auth-note-ok enter delay-1 mb-6">{{ session('status') }}</p>
             @endif
 
             @yield('form')
         </div>
 
-        <p class="text-xs text-pine/45 mt-auto text-center lg:text-left">
-            &copy; {{ date('Y') }} Ivora Dental Studio · <a href="{{ route('contact') }}" class="underline-grow">Need help?</a>
+        <p class="text-xs text-pine/45 text-center mt-8">
+            &copy; {{ date('Y') }} {{ $settings['clinic_name'] ?? 'Dental Studio' }} ·
+            <a href="{{ route('contact') }}" class="underline-grow">Need help?</a>
         </p>
-    </div>
+    </section>
 
-    {{-- Brand side --}}
-    <div class="hidden lg:block relative on-dark overflow-hidden">
+    {{-- Illustration column. Hidden below lg: on a phone it would push the form
+         off the first screen, which is the only thing that matters here. --}}
+    <section class="hidden lg:flex relative items-center justify-center overflow-hidden on-dark p-12">
         <div class="grain absolute inset-0"></div>
+        <div class="absolute inset-0 opacity-60"
+             style="background-image:radial-gradient(circle at 22% 20%, rgba(168,230,216,.18) 0, transparent 46%), radial-gradient(circle at 78% 80%, rgba(28,122,110,.35) 0, transparent 48%)"></div>
 
-        <div class="relative h-full flex flex-col justify-center px-14 py-16">
-            <div class="arch-frame w-full max-w-sm aspect-[4/5] mb-10 bg-pine/40">
-                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80" alt="" class="w-full h-full object-cover">
+        <div class="relative z-10 w-full">
+            <div class="enter delay-1 flex justify-center">
+                @include('layouts.partials.auth-graphic')
             </div>
 
-            <blockquote class="max-w-md">
-                <p class="font-display text-2xl leading-snug text-porcelain">
-                    “I have a genuine phobia of dentists. It was the first appointment I have
-                    left without shaking.”
+            <div class="enter delay-2 max-w-md mx-auto text-center mt-10">
+                <h2 class="font-display text-2xl font-bold text-porcelain">Everything on one chart</h2>
+                <p class="mt-3 leading-relaxed text-porcelain/80">
+                    Appointments, x-rays, treatment plans and invoices stay together, so nobody
+                    has to ask you the same question twice.
                 </p>
-                <footer class="text-sm text-mint/70 mt-5 font-mono">Rehan M. · root canal patient</footer>
-            </blockquote>
+            </div>
 
-            <div class="flex gap-10 mt-12 pt-10 border-t border-white/10">
+            <div class="enter delay-3 flex justify-center gap-10 mt-10 pt-8 border-t border-white/10">
                 @foreach([['12,400+', 'patients'], ['18', 'years'], ['98%', 'would return']] as [$value, $label])
-                    <div>
+                    <div class="text-center">
                         <p class="font-display text-2xl font-bold text-mint">{{ $value }}</p>
                         <p class="text-xs text-porcelain/50 mt-1">{{ $label }}</p>
                     </div>
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 </div>
-
-<script src="{{ asset('assets/js/ivora.js') }}" defer></script>
 </body>
 </html>

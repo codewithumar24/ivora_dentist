@@ -22,13 +22,13 @@
                 <div>
                     <p class="eyebrow text-pine/45 mb-1.5">Billed to</p>
                     <p class="font-medium">{{ $invoice->patient->name }}</p>
-                    <p class="text-pine/60">{{ $invoice->patient->email }}</p>
-                    <p class="text-pine/60 font-mono text-xs">{{ $invoice->patient->patientProfile?->mrn }}</p>
+                    <p class="text-pine/70">{{ $invoice->patient->email }}</p>
+                    <p class="text-pine/70 font-mono text-xs">{{ $invoice->patient->patientProfile?->mrn }}</p>
                 </div>
                 <div class="text-right">
                     <span class="badge badge-{{ match($invoice->status) { 'paid' => 'jade', 'partial' => 'amber', 'void' => 'slate', default => 'rose' } }}">{{ ucfirst($invoice->status) }}</span>
-                    <p class="text-pine/60 mt-2">Due {{ $invoice->due_on?->format('j M Y') ?? 'on receipt' }}</p>
-                    @if($invoice->doctor)<p class="text-pine/60">{{ $invoice->doctor->full_name }}</p>@endif
+                    <p class="text-pine/70 mt-2">Due {{ $invoice->due_on?->format('j M Y') ?? 'on receipt' }}</p>
+                    @if($invoice->doctor)<p class="text-pine/70">{{ $invoice->doctor->full_name }}</p>@endif
                 </div>
             </div>
 
@@ -47,9 +47,9 @@
             </table>
 
             <div class="p-5 space-y-2 text-sm">
-                <div class="flex justify-between"><span class="text-pine/60">Subtotal</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->subtotal) }}</span></div>
-                @if((float) $invoice->discount)<div class="flex justify-between"><span class="text-pine/60">Discount</span><span class="font-mono">− {{ $currency }} {{ number_format((float) $invoice->discount) }}</span></div>@endif
-                @if((float) $invoice->tax)<div class="flex justify-between"><span class="text-pine/60">Tax</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->tax) }}</span></div>@endif
+                <div class="flex justify-between"><span class="text-pine/70">Subtotal</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->subtotal) }}</span></div>
+                @if((float) $invoice->discount)<div class="flex justify-between"><span class="text-pine/70">Discount</span><span class="font-mono">− {{ $currency }} {{ number_format((float) $invoice->discount) }}</span></div>@endif
+                @if((float) $invoice->tax)<div class="flex justify-between"><span class="text-pine/70">Tax</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->tax) }}</span></div>@endif
                 <div class="flex justify-between pt-3 mt-2 border-t border-pine/10 font-semibold text-base"><span>Total</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->total) }}</span></div>
                 <div class="flex justify-between text-jade"><span>Paid</span><span class="font-mono">{{ $currency }} {{ number_format((float) $invoice->amount_paid) }}</span></div>
                 @if($invoice->balance > 0)

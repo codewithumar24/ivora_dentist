@@ -5,7 +5,7 @@
 @section('content')
 <div class="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
     <div class="space-y-5">
-        <form method="GET" class="card-flat p-4 flex gap-3 items-end">
+        <form method="GET" class="card-flat filter-bar p-4 flex gap-3 items-end">
             <div class="flex-1"><label class="field-label">Search</label><input type="search" name="q" value="{{ request('q') }}" class="field !py-2 !text-sm"></div>
             <button class="btn btn-primary btn-sm">Search</button>
         </form>

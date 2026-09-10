@@ -14,5 +14,5 @@
     <h3 class="font-display text-lg font-semibold leading-snug">
         <a href="{{ route('blog.show', $post->slug) }}" class="underline-grow">{{ $post->title }}</a>
     </h3>
-    <p class="text-sm text-pine/65 mt-2 leading-relaxed">{{ Str::limit($post->excerpt, 118) }}</p>
+    <p class="text-[0.95rem] text-pine/75 mt-2 leading-relaxed">{{ Str::limit($post->excerpt, 118) }}</p>
 </article>

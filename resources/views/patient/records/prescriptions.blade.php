@@ -38,7 +38,7 @@
             </table>
 
             @if($prescription->notes)
-                <p class="text-xs text-pine/60 mt-4 pt-4 border-t border-pine/8">{{ $prescription->notes }}</p>
+                <p class="text-xs text-pine/70 mt-4 pt-4 border-t border-pine/8">{{ $prescription->notes }}</p>
             @endif
         </x-ui.panel>
     @empty

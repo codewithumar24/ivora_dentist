@@ -32,10 +32,10 @@
     <div class="max-w-shell mx-auto px-5">
         <nav class="flex items-center justify-between h-[74px]" aria-label="Main">
             <a href="{{ route('home') }}" class="flex items-center gap-2.5 text-pine">
-                <span class="w-9 h-9"><img src="{{ asset('assets/img/logo-mark.svg') }}" alt="" class="w-full h-full"></span>
+                <span class="w-14 h-12"><img src="{{ \App\Models\Setting::media('logo', 'images/zynera-logo.png') }}" alt="{{ $settings['clinic_name'] ?? '' }}" class="w-full h-full object-contain"></span>
                 <span class="leading-none">
-                    <span class="block font-display text-lg font-bold tracking-tight">Ivora</span>
-                    <span class="block font-mono text-[9px] tracking-[.22em] uppercase opacity-60">Dental Studio</span>
+                    <span class="block font-display text-lg font-bold tracking-tight">Zynera Dental</span>
+                    <span class="block font-mono text-[9px] tracking-[.22em] uppercase opacity-60">Solutions</span>
                 </span>
             </a>
 
@@ -120,10 +120,10 @@
         <div class="grid lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-12 mb-16">
             <div>
                 <div class="flex items-center gap-2.5 mb-5">
-                    <span class="w-9 h-9 text-mint"><img src="{{ asset('assets/img/logo.svg') }}" alt="" class="w-full h-full"></span>
-                    <span class="font-display text-xl font-bold">Ivora Dental Studio</span>
+                    <span class="w-15 h-12 text-mint"><img src="{{ \App\Models\Setting::media('logo_light', null) ?: \App\Models\Setting::media('logo', 'images/zynera-logo.png') }}" alt="{{ $settings['clinic_name'] ?? '' }}" class="w-full h-full object-contain"></span>
+                    <span class="font-display text-xl font-bold">Zynera Dental Solutions</span>
                 </div>
-                <p class="text-porcelain/70 text-sm leading-relaxed max-w-sm">
+                <p class="text-porcelain/80 text-sm leading-relaxed max-w-sm">
                     {{ $settings['tagline'] ?? 'Quiet, careful dentistry' }}. {{ $settings['address'] ?? '' }}
                 </p>
 
@@ -150,7 +150,7 @@
             <div>
                 <h3 class="eyebrow text-mint/70 mb-4">Practice</h3>
                 <ul class="space-y-2.5 text-sm text-porcelain/75">
-                    <li><a href="{{ route('about') }}" class="hover:text-mint transition">About Ivora</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-mint transition">About Zynera</a></li>
                     <li><a href="{{ route('doctors.index') }}" class="hover:text-mint transition">Our dentists</a></li>
                     <li><a href="{{ route('pricing') }}" class="hover:text-mint transition">Pricing</a></li>
                     <li><a href="{{ route('gallery') }}" class="hover:text-mint transition">Gallery</a></li>
@@ -178,7 +178,7 @@
         </div>
 
         <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-porcelain/50">
-            <p>&copy; {{ date('Y') }} Ivora Dental Studio. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Zynera Dental Solutions. All rights reserved.</p>
             <div class="flex items-center gap-5">
                 @foreach(['facebook' => 'Facebook', 'instagram' => 'Instagram', 'linkedin' => 'LinkedIn', 'youtube' => 'YouTube'] as $key => $label)
                     @if(!empty($settings[$key]))
@@ -189,8 +189,6 @@
         </div>
     </div>
 </footer>
-
-<script src="{{ asset('assets/js/ivora.js') }}" defer></script>
 @stack('scripts')
 </body>
 </html>

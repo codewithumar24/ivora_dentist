@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -106,9 +107,45 @@ class User extends Authenticatable
             return $this->avatar;
         }
 
-        return $this->avatar
-            ? asset('storage/'.$this->avatar)
-            : 'https://ui-avatars.com/api/?background=10403B&color=F4F7F5&name='.urlencode($this->name);
+        // An uploaded path is only usable once `php artisan storage:link` has
+        // been run; without the symlink it 404s and the card renders as a blank
+        // box. Check the file exists rather than trusting the column.
+        if ($this->avatar && Storage::disk('public')->exists($this->avatar)) {
+            return asset('storage/'.$this->avatar);
+        }
+
+        return $this->initialsAvatar();
+    }
+
+    /**
+     * Initials on the clinic's gradient, as an inline SVG data URI.
+     *
+     * Deliberately not a call to ui-avatars.com or any other service: a missing
+     * photograph should not depend on a third party being reachable, and on a
+     * clinic network it often is not.
+     */
+    public function initialsAvatar(): string
+    {
+        $initials = Str::of($this->name)
+            ->replaceMatches('/[^\p{L}\s]/u', '')
+            ->squish()
+            ->explode(' ')
+            ->take(2)
+            ->map(fn ($part) => Str::upper(Str::substr($part, 0, 1)))
+            ->implode('');
+
+        $svg = <<<SVG
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#10403B"/><stop offset="100%" stop-color="#1C7A6E"/>
+          </linearGradient></defs>
+          <rect width="200" height="200" fill="url(#g)"/>
+          <text x="100" y="100" fill="#A8E6D8" font-family="Inter Tight, system-ui, sans-serif"
+                font-size="78" font-weight="600" text-anchor="middle" dominant-baseline="central">{$initials}</text>
+        </svg>
+        SVG;
+
+        return 'data:image/svg+xml;base64,'.base64_encode($svg);
     }
 
     public function getAgeAttribute(): ?int

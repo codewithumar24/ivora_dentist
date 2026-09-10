@@ -7,7 +7,7 @@
 </span>
 
 <h1 class="font-display text-3xl font-bold mb-2">Check your inbox</h1>
-<p class="text-sm text-pine/60 mb-8 leading-relaxed">
+<p class="text-sm text-pine/70 mb-8 leading-relaxed">
     We sent a confirmation link to <strong class="text-pine">{{ auth()->user()->email }}</strong>.
     Confirming it means appointment reminders will actually reach you. The link lasts 48 hours.
 </p>

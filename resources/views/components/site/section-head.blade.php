@@ -8,6 +8,6 @@
     @endif
     <h2 class="h-section font-display {{ $tone === 'light' ? 'text-porcelain' : 'text-ink' }}">{!! $title !!}</h2>
     @if($lede)
-        <p class="lede mt-5 {{ $tone === 'light' ? 'text-porcelain/70' : 'text-pine/70' }}">{{ $lede }}</p>
+        <p class="lede mt-5 {{ $tone === 'light' ? 'text-porcelain/80' : 'text-pine/70' }}">{{ $lede }}</p>
     @endif
 </div>

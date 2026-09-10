@@ -1,4 +1,4 @@
-# Ivora Dental Studio
+# Ivora Dental Studio Zynera Dental
 
 A complete dental clinic platform built in Laravel 12 — public marketing site, patient portal, and a staff console with a hand-rolled role & permission system.
 
