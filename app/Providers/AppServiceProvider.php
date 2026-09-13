@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Service;
 use App\Services\SlotService;
 use App\Services\SmsService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,15 @@ class AppServiceProvider extends ServiceProvider
 
         \Illuminate\Support\Facades\Blade::if('role', function (string ...$slugs) {
             return auth()->check() && auth()->user()->hasRole($slugs);
+        });
+
+        View::composer('layouts.site', function ($view) {
+            $view->with(
+                'navServices',
+                Service::active()
+                    ->orderBy('sort_order')
+                    ->get()
+            );
         });
     }
 }

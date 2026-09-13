@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Create an account — Ivora Dental Studio')
+@section('title', 'Create an account Zynera Dental Solution')
 
 @section('form')
 <div class="enter delay-1 text-center">

@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', 'Patient reviews — Ivora Dental Studio')
+@section('title', 'Patient reviews Zynera Dental Solution')
 
 @section('content')
 <x-site.page-hero

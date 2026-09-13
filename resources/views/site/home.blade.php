@@ -25,13 +25,13 @@
         <div class="hero-wash"></div>
     @endif
 
-    <div class="max-w-shell mx-auto px-5 pt-12 pb-20 lg:pt-20 lg:pb-28 relative z-10">
+    <div class="max-w-shell mx-auto px-5 pt-20 pb-20 lg:pt-14 lg:pb-14 relative z-10">
         <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 lg:gap-16 items-center">
 
             <div>
-                <p class="eyebrow text-jade flex items-center gap-2.5 mb-6 reveal">
+                <!-- <p class="eyebrow text-jade flex items-center gap-2.5 mb-6 reveal">
                     Karachi · Est. 2020
-                </p>
+                </p> -->
 
                 <h1 class="h-display font-display reveal" data-delay="60">
                     Dentistry<br>
@@ -78,7 +78,7 @@
             </div>
 
             {{-- The arch: hero image framed by Ivora's shape --}}
-            <div class="relative reveal" data-delay="120">
+            <!-- <div class="relative reveal" data-delay="120">
                 <div class="arch-frame aspect-[18/15] max-w-[840px] mx-auto bg-pine">
                     <img src="{{ $heroPhoto }}"
                          alt="A treatment room at {{ $settings['clinic_name'] ?? 'the studio' }}"
@@ -103,21 +103,23 @@
                     <p class="font-display text-2xl font-bold text-pine leading-none"><span data-count="98">0</span>%</p>
                     <p class="text-[11px] text-pine/70 mt-1">would come back</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
-    {{-- Ticker --}}
-    <div class="border-y border-pine/10 py-4 overflow-hidden">
-        <div class="marquee font-mono text-xs uppercase tracking-[.2em] text-black-500/40">
+   
+</section>
+
+ {{-- Ticker --}}
+    <div class="border-y border-pine/10 py-4 overflow-hidden relative z-10">
+        <div class="marquee font-mono text-lg font-semibold uppercase tracking-[.2em] text-ink/80">
             @for($i = 0; $i < 2; $i++)
                 @foreach(['Digital x-rays', 'Sedation available', 'Wheelchair accessible', 'Same-week emergencies', 'Written treatment plans', 'Instalments on plans over Rs 50,000', 'Children welcome'] as $item)
-                    <span class="flex items-center gap-3 shrink-0">{{ $item }} <span class="text-mint">◆</span></span>
+                   <span class="flex items-center gap-3 shrink-0">{{ $item }} <span class="text-jade">◆</span></span>
                 @endforeach
             @endfor
         </div>
     </div>
-</section>
 
 {{-- ═══ Treatments ════════════════════════════════════════════════════════ --}}
 <section class="py-24">
@@ -266,29 +268,33 @@
         />
     </div>
 
-    <div class="mt-14 flex gap-6 overflow-x-auto px-5 pb-6 snap-x max-w-shell mx-auto scrollbar-thin">
-        @foreach($testimonials as $testimonial)
-            <figure class="card-flat p-7 min-w-[320px] max-w-[380px] snap-start shrink-0 flex flex-col">
-                <div class="flex gap-1 mb-5 text-jade">
-                    @for($i = 0; $i < $testimonial->rating; $i++)
-                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 14 14"><path d="m7 1 1.8 3.7 4.1.6-3 2.9.7 4.1L7 10.4 3.4 12.3l.7-4.1-3-2.9 4.1-.6z"/></svg>
-                    @endfor
-                </div>
-
-                <blockquote class="text-[15px] leading-relaxed text-ink/85 flex-1">
-                    “{{ $testimonial->quote }}”
-                </blockquote>
-
-                <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-pine/8">
-                    <img src="{{ $testimonial->avatar_url }}" alt="" class="w-9 h-9 rounded-full object-cover">
-                    <div>
-                        <p class="text-sm font-medium">{{ $testimonial->name }}</p>
-                        <p class="text-xs text-pine/55 font-mono">{{ $testimonial->treatment }}</p>
+<div class="mt-14 testimonial-mask overflow-hidden">
+    <div class="testimonial-track">
+        @for($rep = 0; $rep < 2; $rep++)
+            @foreach($testimonials as $testimonial)
+                <figure class="card-flat p-7 w-[320px] sm:w-[360px] shrink-0 flex flex-col">
+                    <div class="flex gap-1 mb-5 text-jade">
+                        @for($i = 0; $i < $testimonial->rating; $i++)
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 14 14"><path d="m7 1 1.8 3.7 4.1.6-3 2.9.7 4.1L7 10.4 3.4 12.3l.7-4.1-3-2.9 4.1-.6z"/></svg>
+                        @endfor
                     </div>
-                </figcaption>
-            </figure>
-        @endforeach
+
+                    <blockquote class="text-[15px] leading-relaxed text-ink/85 flex-1">
+                        “{{ $testimonial->quote }}”
+                    </blockquote>
+
+                    <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-pine/8">
+                        <img src="{{ $testimonial->avatar_url }}" alt="" class="w-9 h-9 rounded-full object-cover">
+                        <div>
+                            <p class="text-sm font-medium">{{ $testimonial->name }}</p>
+                            <p class="text-xs text-pine/55 font-mono">{{ $testimonial->treatment }}</p>
+                        </div>
+                    </figcaption>
+                </figure>
+            @endforeach
+        @endfor
     </div>
+</div>
 </section>
 
 {{-- ═══ Journal ═══════════════════════════════════════════════════════════ --}}
@@ -387,7 +393,7 @@
             </p>
             <div class="flex flex-wrap justify-center gap-3 mt-9">
                 <a href="{{ route('book') }}" class="btn btn-light">Book a visit</a>
-                <a href="{{ route('pricing') }}" class="btn btn-ghost !border-white/25 !text-porcelain hover:!bg-white hover:!text-pine">See prices first</a>
+                <a href="{{ route('pricing') }}" class="btn btn-light !border-white/25 !text-black-400 hover:!bg-white hover:!text-pine">See prices first</a>
             </div>
         </div>
     </div>

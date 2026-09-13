@@ -33,12 +33,20 @@
                 @endforeach
             </dl>
 
-            <div class="flex gap-2 mt-4">
-                <a href="{{ route('admin.doctors.show', $doctor) }}" class="btn btn-ghost btn-sm flex-1">Profile</a>
-                @permission('schedules.manage')
-                    <a href="{{ route('admin.doctors.schedule', $doctor) }}" class="btn btn-ghost btn-sm flex-1">Hours</a>
-                @endpermission
-            </div>
+           <div class="flex gap-2 mt-4">
+    <a href="{{ route('admin.doctors.show', $doctor) }}" class="btn btn-ghost btn-sm flex-1">Profile</a>
+    @permission('schedules.manage')
+        <a href="{{ route('admin.doctors.schedule', $doctor) }}" class="btn btn-ghost btn-sm flex-1">Hours</a>
+    @endpermission
+</div>
+
+@permission('doctors.manage')
+    <form action="{{ route('admin.doctors.destroy', $doctor) }}" method="POST" class="mt-2"
+          data-confirm="Remove {{ $doctor->full_name }} from the team? Their profile and history will be hidden, not erased.">
+        @csrf @method('DELETE')
+        <button class="btn btn-sm w-full border border-rose-200 text-rose-700 hover:bg-rose-50">Remove practitioner</button>
+    </form>
+@endpermission
         </div>
     @endforeach
 </div>

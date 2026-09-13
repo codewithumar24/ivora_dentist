@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', 'Book an appointment — Ivora Dental Studio')
+@section('title', 'Book an appointment Zynera Dental Solution')
 
 @section('content')
 <section class="py-12 lg:py-16">

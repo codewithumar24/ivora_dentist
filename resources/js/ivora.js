@@ -318,35 +318,10 @@ document.addEventListener('click', (event) => {
   const sections = document.querySelectorAll('[data-nav-group]');
   if (!sections.length) return;
 
-  const panelOf = (section) => section.querySelector('[data-nav-panel]');
-
-  const open = (section) => {
-    const panel = panelOf(section);
-    section.classList.add('is-open');
-    section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', 'true');
-    panel.style.height = `${panel.scrollHeight}px`;
-    panel.addEventListener('transitionend', function done() {
-      panel.style.height = 'auto';
-      panel.removeEventListener('transitionend', done);
-    });
-  };
-
-  const close = (section) => {
-    const panel = panelOf(section);
-    panel.style.height = `${panel.scrollHeight}px`;
-    requestAnimationFrame(() => {
-      panel.style.height = '0px';
-      section.classList.remove('is-open');
-      section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', 'false');
-    });
-  };
-
   sections.forEach((section) => {
-    // The group holding the current page is rendered open by the server.
-    if (section.classList.contains('is-open')) panelOf(section).style.height = 'auto';
-
     section.querySelector('[data-nav-toggle]').addEventListener('click', () => {
-      section.classList.contains('is-open') ? close(section) : open(section);
+      const isOpen = section.classList.toggle('is-open');
+      section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', String(isOpen));
     });
   });
 })();

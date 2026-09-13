@@ -50,11 +50,19 @@
                             <td class="text-xs text-pine/55">{{ $user->last_login_at?->diffForHumans() ?? 'Never' }}</td>
                             <td><span class="badge badge-{{ $user->status === 'active' ? 'jade' : 'slate' }}">{{ ucfirst($user->status) }}</span></td>
                             <td class="text-right whitespace-nowrap">
-                                @permission('users.manage')
-                                    <a href="{{ route('admin.users.permissions', $user) }}" class="btn btn-ghost btn-sm">Access</a>
-                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-ghost btn-sm">Edit</a>
-                                @endpermission
-                            </td>
+    @permission('users.manage')
+        <a href="{{ route('admin.users.permissions', $user) }}" class="btn btn-ghost btn-sm">Access</a>
+        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-ghost btn-sm">Edit</a>
+
+        @unless($user->isOwner())
+            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline"
+                  data-confirm="Remove {{ $user->name }}'s account?">
+                @csrf @method('DELETE')
+                <button class="btn btn-sm border border-rose-200 text-rose-700 hover:bg-rose-50">Remove</button>
+            </form>
+        @endunless
+    @endpermission
+</td>
                         </tr>
                     @endforeach
                 </tbody>

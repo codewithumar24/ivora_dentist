@@ -6,7 +6,7 @@
     <div class="max-w-shell mx-auto px-5 py-20 lg:py-24 relative z-10">
         @if($eyebrow)
             <p class="eyebrow text-mint flex items-center gap-2.5 mb-5 enter">
-                <span class="w-8 h-px bg-mint/60"></span>{{ $eyebrow }}
+                <!-- <span class="w-8 h-px bg-mint/60"></span>{{ $eyebrow }} -->
             </p>
         @endif
 

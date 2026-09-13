@@ -192,6 +192,7 @@ Route::middleware(['auth', 'active', 'role:owner,dentist,receptionist,assistant,
 
             Route::get('/reviews', 'reviews')->name('reviews');
             Route::patch('/reviews/{review}', 'moderateReview')->name('reviews.moderate');
+            Route::delete('/reviews/{review}', 'destroyReview')->name('reviews.destroy');
         });
 
         // Inbox + mailing list

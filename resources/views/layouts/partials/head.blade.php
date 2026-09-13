@@ -5,7 +5,7 @@
 <title>@yield('title', $settings['meta_title'] ?? 'Zynera Dental Solutions')</title>
 <meta name="description" content="@yield('description', $settings['meta_description'] ?? 'A calm dental studio in Karachi.')">
 
-<meta property="og:title" content="@yield('title', $settings['meta_title'] ?? 'Ivora Dental Studio')">
+<meta property="og:title" content="@yield('title', $settings['meta_title'] ?? 'zynera Dental Studio')">
 <meta property="og:description" content="@yield('description', $settings['meta_description'] ?? '')">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url()->current() }}">

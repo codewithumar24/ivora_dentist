@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', 'About Ivora Dental Studio')
+@section('title', 'About Zynera Dental Solution')
 
 @section('content')
 <x-site.page-hero
@@ -38,13 +38,13 @@
         <x-site.section-head eyebrow="Specialities" tone="light" title="Six disciplines under<br>one roof." lede="Referrals cost time. Almost everything you might need is handled in this building." />
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
-            @foreach($specialities as $speciality)
-                <div class="glass !bg-white/8 !border-white/12 rounded-2xl p-6 reveal">
-                    <h3 class="font-display text-lg font-semibold text-porcelain mb-2.5">{{ $speciality->name }}</h3>
-                    <p class="text-sm text-porcelain/80 leading-relaxed">{{ $speciality->description }}</p>
-                </div>
-            @endforeach
+    @foreach($specialities as $speciality)
+        <div class="glass !bg-white/90 !border-white/40 rounded-2xl p-6 reveal">
+            <h3 class="font-display text-lg font-semibold text-ink mb-2.5">{{ $speciality->name }}</h3>
+            <p class="text-sm text-ink leading-relaxed">{{ $speciality->description }}</p>
         </div>
+    @endforeach
+</div>
     </div>
 </section>
 

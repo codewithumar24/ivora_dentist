@@ -46,9 +46,9 @@
 <div class="min-h-screen flex">
     <aside data-sidebar class="fixed lg:sticky top-0 left-0 z-50 w-[252px] h-screen shrink-0 bg-pine text-porcelain flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-300">
         <div class="px-5 h-[64px] flex items-center gap-2.5 border-b border-white/8 shrink-0">
-            <span class="w-8 h-8 text-mint"><img src="{{ asset('assets/img/logo.svg') }}" alt="" class="w-full h-full"></span>
+            <span class="w-12 h-12 rounded-xl bg-white/95 p-1.5 grid place-items-center shrink-0"><img src="{{ \App\Models\Setting::media('logo', 'images/zynera-logo.png') }}" alt="" class="w-full h-full object-contain"></span>
             <div class="leading-none">
-                <span class="block font-display text-base font-bold">Ivora</span>
+                <span class="block font-display text-base font-bold">Zynera</span>
                 <span class="block font-mono text-[9px] tracking-[.2em] uppercase text-mint/60">Staff console</span>
             </div>
         </div>
@@ -89,14 +89,16 @@
                         </svg>
                     </button>
 
-                    <div class="sidebar-sub" data-nav-panel>
-                        @foreach($visible as [$route, $label, $permission, $path])
-                            <a href="{{ route($route) }}" class="sidebar-link {{ request()->routeIs($route) ? 'is-active' : '' }}">
-                                <svg class="w-[16px] h-[16px] shrink-0 opacity-80" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $path }}"/></svg>
-                                <span class="truncate">{{ $label }}</span>
-                            </a>
-                        @endforeach
-                    </div>
+                   <div class="sidebar-sub" data-nav-panel>
+    <div>
+        @foreach($visible as [$route, $label, $permission, $path])
+            <a href="{{ route($route) }}" class="sidebar-link {{ request()->routeIs($route) ? 'is-active' : '' }}">
+                <svg class="w-[16px] h-[16px] shrink-0 opacity-80" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $path }}"/></svg>
+                <span class="truncate">{{ $label }}</span>
+            </a>
+        @endforeach
+    </div>
+</div>
                 </div>
             @endforeach
         </nav>

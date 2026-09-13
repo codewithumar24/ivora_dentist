@@ -27,9 +27,21 @@
                    icon="M5 3h10v14l-2.5-1.5L10 17l-2.5-1.5L5 17z" />
     </div>
 
-    @if($personal)
-        <div class="card-flat p-5 flex flex-wrap items-center gap-8">
-            <p class="eyebrow text-pine/45">Your chair</p>
+ @if($personal)
+    <div class="stat-card card-flat p-6">
+        <div class="flex flex-wrap items-center gap-4 mb-5">
+            <span class="chip-icon">
+                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 5h12v12H4zM7 3v4M13 3v4M4 9h12"/>
+                </svg>
+            </span>
+            <div>
+                <p class="font-display font-semibold text-base leading-none">Your chair</p>
+                <p class="text-xs text-pine/50 mt-1">Your own numbers at a glance</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 pt-5 border-t border-pine/8">
             @foreach([
                 'Today' => $personal['today'],
                 'This week' => $personal['week'],
@@ -37,12 +49,13 @@
                 'Awaiting confirmation' => $personal['pending'],
             ] as $label => $value)
                 <div>
-                    <p class="font-display text-2xl font-bold leading-none">{{ $value }}</p>
-                    <p class="text-xs text-pine/55 mt-1">{{ $label }}</p>
+                    <p class="stat-figure">{{ $value }}</p>
+                    <p class="text-xs text-pine/55 mt-1.5 leading-snug">{{ $label }}</p>
                 </div>
             @endforeach
         </div>
-    @endif
+    </div>
+@endif
 
     {{-- Charts --}}
     <div class="grid lg:grid-cols-[1.5fr_1fr] gap-6">

@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', 'Sign in — ' . ($settings['clinic_name'] ?? 'Dental Studio'))
+@section('title', 'Sign in ' . ($settings['clinic_name'] ?? 'Dental Solution'))
 
 @section('form')
 <div class="enter delay-1 text-center">

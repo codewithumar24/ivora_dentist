@@ -428,7 +428,7 @@ body {
 .hero-wash {
   position: absolute; inset: 0; z-index: 1;
   background:
-    linear-gradient(100deg, rgba(244,247,245,.96) 0%, rgba(244,247,245,.88) 42%, rgba(244,247,245,.55) 72%, rgba(244,247,245,.35) 100%),
+    linear-gradient(100deg, rgba(244,247,245,.82) 0%, rgba(244,247,245,.68) 42%, rgba(244,247,245,.35) 72%, rgba(244,247,245,.15) 100%),
     radial-gradient(circle at 80% 30%, rgba(168,230,216,.28) 0, transparent 55%);
 }
 
@@ -473,18 +473,37 @@ body {
 /* Height is animated from a measured pixel value set by the script, because
    `auto` cannot be transitioned. */
 .sidebar-sub {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  height: 0;
   margin-left: .55rem;
   padding-left: .75rem;
   border-left: 1px solid rgba(168,230,216,.18);
-  transition: height .28s cubic-bezier(.22,1,.36,1), opacity .2s ease;
+  transition: grid-template-rows .28s cubic-bezier(.22,1,.36,1), opacity .2s ease;
   opacity: 0;
 }
-.sidebar-section.is-open .sidebar-sub { opacity: 1; }
+.sidebar-sub > div { overflow: hidden; min-height: 0; }
+.sidebar-section.is-open .sidebar-sub { grid-template-rows: 1fr; opacity: 1; }
 
 .sidebar-sub .sidebar-link { font-size: .9rem; font-weight: 500; }
 
 @media (prefers-reduced-motion: reduce) {
   .sidebar-sub { transition: none; }
+}
+
+/* ---- Testimonial marquee ---- */
+.testimonial-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: testimonial-drift 42s linear infinite;
+  padding: 0 1.25rem .5rem;
+}
+.testimonial-track:hover { animation-play-state: paused; }
+@keyframes testimonial-drift { to { transform: translateX(-50%); } }
+
+/* Edges fade out instead of cutting off abruptly */
+.testimonial-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
 }
