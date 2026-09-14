@@ -43,7 +43,7 @@
                         <li class="pb-3 border-b border-pine/6 last:border-0">
                             <p class="font-medium">{{ $item->medicine }} {{ $item->dosage }}</p>
                             <p class="text-xs text-pine/55 mt-0.5 font-mono">{{ $item->frequency }} · {{ $item->duration }}</p>
-                            @if($item->instruction)<p class="text-xs text-pine/60 mt-1">{{ $item->instruction }}</p>@endif
+                            @if($item->instruction)<p class="text-xs text-pine/70 mt-1">{{ $item->instruction }}</p>@endif
                         </li>
                     @endforeach
                 </ul>

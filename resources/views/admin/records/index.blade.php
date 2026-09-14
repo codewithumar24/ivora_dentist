@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="space-y-5">
-    <form method="GET" class="card-flat p-4 flex gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex gap-3 items-end">
         <div class="flex-1">
             <label class="field-label">Search by patient</label>
             <input type="search" name="q" value="{{ request('q') }}" class="field !py-2 !text-sm">
@@ -19,7 +19,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>Date</th><th>Patient</th><th>Practitioner</th><th>Diagnosis</th><th>Next review</th><th></th></tr></thead>
                 <tbody>

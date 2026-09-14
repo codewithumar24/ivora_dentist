@@ -13,7 +13,7 @@
                 <img src="{{ $appointment->patient->avatar_url }}" alt="" class="w-16 h-16 rounded-2xl object-cover">
                 <div class="flex-1 min-w-[200px]">
                     <p class="font-display text-lg font-semibold">{{ $appointment->patient->name }}</p>
-                    <p class="text-sm text-pine/60">
+                    <p class="text-sm text-pine/70">
                         {{ $appointment->patient->patientProfile?->mrn }} ·
                         {{ $appointment->patient->age ? $appointment->patient->age.' yrs' : 'DOB unknown' }} ·
                         {{ $appointment->patient->phone }}

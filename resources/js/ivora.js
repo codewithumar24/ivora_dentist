@@ -280,3 +280,48 @@
     });
   });
 })();
+
+/* ---------------------------------------------------------------------------
+   Password visibility toggle on the sign-in screens.
+   Delegated, so it covers fields rendered after load too. No dependency —
+   the button is inert until this runs, which is the right failure mode.
+   --------------------------------------------------------------------------- */
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-toggle-password]');
+  if (!button) return;
+
+  const input = document.getElementById(button.dataset.togglePassword);
+  if (!input) return;
+
+  const reveal = input.type === 'password';
+  input.type = reveal ? 'text' : 'password';
+
+  button.setAttribute('aria-pressed', String(reveal));
+  button.setAttribute('aria-label', reveal ? 'Hide password' : 'Show password');
+
+  button.querySelector('[data-eye-open]')?.classList.toggle('hidden', reveal);
+  button.querySelector('[data-eye-shut]')?.classList.toggle('hidden', !reveal);
+
+  // Keep the caret where the patient left it rather than jumping to the start.
+  const end = input.value.length;
+  input.focus();
+  input.setSelectionRange(end, end);
+});
+
+/* ---------------------------------------------------------------------------
+   Console sidebar: collapsible groups.
+   Heights are measured and set in pixels because `height: auto` cannot be
+   transitioned; the value is cleared once the group is open so a long list can
+   still grow if the viewport changes.
+   --------------------------------------------------------------------------- */
+(() => {
+  const sections = document.querySelectorAll('[data-nav-group]');
+  if (!sections.length) return;
+
+  sections.forEach((section) => {
+    section.querySelector('[data-nav-toggle]').addEventListener('click', () => {
+      const isOpen = section.classList.toggle('is-open');
+      section.querySelector('[data-nav-toggle]').setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+})();

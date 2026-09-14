@@ -18,12 +18,12 @@
             <div>
                 <p class="eyebrow text-pine/45 mb-1.5">Billed to</p>
                 <p class="font-medium">{{ $invoice->patient->name }}</p>
-                <p class="text-pine/60">{{ $invoice->patient->email }}</p>
+                <p class="text-pine/70">{{ $invoice->patient->email }}</p>
             </div>
             <div class="sm:text-right">
                 <p class="eyebrow text-pine/45 mb-1.5">Due</p>
                 <p class="font-medium">{{ $invoice->due_on?->format('j F Y') ?? 'On receipt' }}</p>
-                @if($invoice->doctor)<p class="text-pine/60">{{ $invoice->doctor->full_name }}</p>@endif
+                @if($invoice->doctor)<p class="text-pine/70">{{ $invoice->doctor->full_name }}</p>@endif
             </div>
         </div>
 
@@ -49,7 +49,7 @@
             ] as $label => $value)
                 @if((float) $value != 0 || $label === 'Subtotal')
                     <div class="flex justify-between">
-                        <span class="text-pine/60">{{ $label }}</span>
+                        <span class="text-pine/70">{{ $label }}</span>
                         <span class="font-mono">{{ $label === 'Discount' ? '−' : '' }}{{ $currency }} {{ number_format((float) $value) }}</span>
                     </div>
                 @endif

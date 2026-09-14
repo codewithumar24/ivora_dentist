@@ -109,8 +109,6 @@
         </main>
     </div>
 </div>
-
-<script src="{{ asset('assets/js/ivora.js') }}" defer></script>
 @stack('scripts')
 </body>
 </html>

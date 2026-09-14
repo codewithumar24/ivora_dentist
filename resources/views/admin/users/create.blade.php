@@ -3,10 +3,16 @@
 @section('subheading', 'They are emailed a login straight away')
 
 @section('content')
-<form action="{{ route('admin.users.store') }}" method="POST" class="max-w-2xl space-y-5">
+<form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" class="max-w-2xl space-y-5">
     @csrf
 
     <x-ui.panel title="Account">
+        <div>
+    <label class="field-label">Profile photo</label>
+    <input type="file" name="avatar" accept="image/*" class="field !py-2">
+    <p class="text-xs text-pine/50 mt-1.5">Optional. JPG, PNG or WebP, up to 2MB.</p>
+    @error('avatar') <p class="field-error">{{ $message }}</p> @enderror
+</div>
         <div class="space-y-5">
             <x-ui.field label="Full name" name="name" required />
             <div class="grid sm:grid-cols-2 gap-5">

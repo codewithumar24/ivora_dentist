@@ -8,7 +8,7 @@
     </span>
 
     <h3 class="h-card font-display mb-2">{{ $service->name }}</h3>
-    <p class="text-sm text-pine/65 leading-relaxed flex-1">{{ Str::limit($service->summary, 108) }}</p>
+    <p class="text-[0.95rem] text-pine/75 leading-relaxed flex-1">{{ Str::limit($service->summary, 108) }}</p>
 
     <div class="mt-5 pt-4 border-t border-pine/8 flex items-center justify-between">
         <span class="font-mono text-xs text-pine">{{ $service->price_label }}</span>

@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     @include('layouts.partials.head')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 </head>
 <body class="console-body text-ink">
 
@@ -47,25 +46,60 @@
 <div class="min-h-screen flex">
     <aside data-sidebar class="fixed lg:sticky top-0 left-0 z-50 w-[252px] h-screen shrink-0 bg-pine text-porcelain flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-300">
         <div class="px-5 h-[64px] flex items-center gap-2.5 border-b border-white/8 shrink-0">
-            <span class="w-8 h-8 text-mint"><img src="{{ asset('assets/img/logo.svg') }}" alt="" class="w-full h-full"></span>
+            <span class="w-12 h-12 rounded-xl bg-white/95 p-1.5 grid place-items-center shrink-0"><img src="{{ \App\Models\Setting::media('logo', 'images/zynera-logo.png') }}" alt="" class="w-full h-full object-contain"></span>
             <div class="leading-none">
-                <span class="block font-display text-base font-bold">Ivora</span>
+                <span class="block font-display text-base font-bold">Zynera</span>
                 <span class="block font-mono text-[9px] tracking-[.2em] uppercase text-mint/60">Staff console</span>
             </div>
         </div>
 
         <nav class="flex-1 overflow-y-auto px-3 pb-4">
+            @php
+                $groupIcons = [
+                    'Clinic'         => 'M3 10.5 10 4l7 6.5V17a1 1 0 0 1-1 1h-4v-5H8v5H4a1 1 0 0 1-1-1z',
+                    'Practice'       => 'M10 3v4M7 5h6M6 9h8v8H6z',
+                    'Website'        => 'M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM3 10h14M10 3a11 11 0 0 1 0 14 11 11 0 0 1 0-14z',
+                    'Front desk'     => 'M3 5h14v10H3zM3 6l7 5 7-5',
+                    'Administration' => 'M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM10 2.5v2M10 15.5v2M17.5 10h-2M4.5 10h-2',
+                ];
+            @endphp
+
             @foreach($groups as $group => $links)
-                @php $visible = collect($links)->filter(fn($l) => !$l[2] || $user->hasPermission($l[2])); @endphp
-                @if($visible->isNotEmpty())
-                    <p class="sidebar-group">{{ $group }}</p>
-                    @foreach($visible as [$route, $label, $permission, $path])
-                        <a href="{{ route($route) }}" class="sidebar-link {{ request()->routeIs($route) ? 'is-active' : '' }}">
-                            <svg class="w-[17px] h-[17px] shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $path }}"/></svg>
-                            <span>{{ $label }}</span>
-                        </a>
-                    @endforeach
-                @endif
+                @php
+                    $visible = collect($links)->filter(fn($l) => !$l[2] || $user->hasPermission($l[2]));
+
+                    // Open the group that owns the page on screen, so nobody lands
+                    // on a screen whose menu entry is hidden inside a closed list.
+                    $isOpen = $visible->contains(fn($l) => request()->routeIs($l[0]));
+                @endphp
+
+                @continue($visible->isEmpty())
+
+                <div class="sidebar-section {{ $isOpen ? 'is-open' : '' }}" data-nav-group>
+                    <button type="button" class="sidebar-group-btn" data-nav-toggle
+                            aria-expanded="{{ $isOpen ? 'true' : 'false' }}">
+                        <svg class="w-[17px] h-[17px] shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="{{ $groupIcons[$group] ?? 'M4 10h12' }}"/>
+                        </svg>
+                        <span class="truncate">{{ $group }}</span>
+                        <svg class="sidebar-caret" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m5 8 5 5 5-5"/>
+                        </svg>
+                    </button>
+
+                   <div class="sidebar-sub" data-nav-panel>
+    <div>
+        @foreach($visible as [$route, $label, $permission, $path])
+            <a href="{{ route($route) }}" class="sidebar-link {{ request()->routeIs($route) ? 'is-active' : '' }}">
+                <svg class="w-[16px] h-[16px] shrink-0 opacity-80" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $path }}"/></svg>
+                <span class="truncate">{{ $label }}</span>
+            </a>
+        @endforeach
+    </div>
+</div>
+                </div>
             @endforeach
         </nav>
 
@@ -134,8 +168,6 @@
         </main>
     </div>
 </div>
-
-<script src="{{ asset('assets/js/ivora.js') }}" defer></script>
 @stack('scripts')
 </body>
 </html>

@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', 'Contact — Ivora Dental Studio')
+@section('title', 'Contact Zynera Dental Solution')
 
 @section('content')
 <x-site.page-hero
@@ -13,7 +13,7 @@
 
         <div class="card-flat p-7 lg:p-9 reveal">
             <h2 class="font-display text-2xl font-semibold mb-1">Send a message</h2>
-            <p class="text-sm text-pine/60 mb-8">We reply within one working day. For anything urgent, please call.</p>
+            <p class="text-sm text-pine/70 mb-8">We reply within one working day. For anything urgent, please call.</p>
 
             <form action="{{ route('contact.send') }}" method="POST" class="space-y-5">
                 @csrf
@@ -32,7 +32,7 @@
         </div>
 
         <aside class="space-y-5">
-            <div class="card-flat p-7">
+            <div class="reveal card-flat p-7">
                 <h3 class="font-display text-lg font-semibold mb-5">Reach us</h3>
                 <dl class="space-y-4 text-sm">
                     <div>
@@ -54,16 +54,16 @@
                 </dl>
             </div>
 
-            <div class="card-flat p-7">
+            <div class="reveal card-flat p-7">
                 <h3 class="font-display text-lg font-semibold mb-4">Opening hours</h3>
                 <dl class="text-sm space-y-2.5">
-                    <div class="flex justify-between"><dt>Monday – Friday</dt><dd class="font-mono text-pine/60">{{ $settings['hours_weekday'] ?? '' }}</dd></div>
-                    <div class="flex justify-between"><dt>Saturday</dt><dd class="font-mono text-pine/60">{{ $settings['hours_saturday'] ?? '' }}</dd></div>
-                    <div class="flex justify-between"><dt>Sunday</dt><dd class="font-mono text-pine/60">{{ $settings['hours_sunday'] ?? '' }}</dd></div>
+                    <div class="flex justify-between"><dt>Monday – Friday</dt><dd class="font-mono text-pine/70">{{ $settings['hours_weekday'] ?? '' }}</dd></div>
+                    <div class="flex justify-between"><dt>Saturday</dt><dd class="font-mono text-pine/70">{{ $settings['hours_saturday'] ?? '' }}</dd></div>
+                    <div class="flex justify-between"><dt>Sunday</dt><dd class="font-mono text-pine/70">{{ $settings['hours_sunday'] ?? '' }}</dd></div>
                 </dl>
             </div>
 
-            <div class="card-flat overflow-hidden">
+            <div class="reveal card-flat overflow-hidden">
                 <iframe src="{{ $settings['map_embed'] ?? '' }}" class="w-full aspect-square border-0" loading="lazy" title="Map"></iframe>
             </div>
         </aside>

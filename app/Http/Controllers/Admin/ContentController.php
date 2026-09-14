@@ -382,6 +382,16 @@ class ContentController extends Controller
 
         return back()->with('status', $review->is_approved ? 'Review published.' : 'Review hidden.');
     }
+    public function destroyReview(Review $review)
+{
+    $this->authorize('gallery.manage');
+
+    $doctor = $review->doctor;
+    $review->delete();
+    $doctor?->refreshRating();
+
+    return back()->with('status', 'Review removed.');
+}
 
     protected function upload(Request $request, string $field, string $folder): ?string
     {

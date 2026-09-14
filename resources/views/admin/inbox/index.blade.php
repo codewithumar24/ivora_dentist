@@ -25,7 +25,7 @@
                         @if($message->status === 'new')<span class="badge badge-jade">New</span>@endif
                     </div>
                     <p class="text-xs text-pine/55 mt-0.5">{{ $message->name }} · {{ $message->email }}</p>
-                    <p class="text-sm text-pine/65 mt-1.5 truncate">{{ $message->message }}</p>
+                    <p class="text-sm text-pine/75 mt-1.5 truncate">{{ $message->message }}</p>
                 </div>
                 <span class="text-xs text-pine/45 font-mono whitespace-nowrap">{{ $message->created_at->diffForHumans() }}</span>
             </a>

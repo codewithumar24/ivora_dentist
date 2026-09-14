@@ -94,7 +94,7 @@
         </div>
 
         <aside class="lg:sticky lg:top-24 self-start space-y-5">
-            <div class="card-flat p-6">
+            <div class="reveal card-flat p-6">
                 <h3 class="font-display text-lg font-semibold mb-5">Next ten days</h3>
                 <div class="space-y-2">
                     @foreach($days as $day)

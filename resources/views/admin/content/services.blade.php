@@ -10,13 +10,13 @@
 @php $currency = $settings['currency_symbol'] ?? 'Rs'; @endphp
 
 <div class="space-y-5">
-    <form method="GET" class="card-flat p-4 flex gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex gap-3 items-end">
         <div class="flex-1"><label class="field-label">Search</label><input type="search" name="q" value="{{ request('q') }}" class="field !py-2 !text-sm"></div>
         <button class="btn btn-primary btn-sm">Search</button>
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>Treatment</th><th>Speciality</th><th>Price</th><th>Duration</th><th>Visible</th><th></th></tr></thead>
                 <tbody>

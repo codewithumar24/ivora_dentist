@@ -18,7 +18,7 @@
                         {{ $next->starts_at_carbon->isToday() ? 'Today' : $next->starts_at_carbon->format('l j F') }},
                         {{ $next->starts_at_carbon->format('g:i A') }}
                     </p>
-                    <p class="text-porcelain/70 mt-3">
+                    <p class="text-porcelain/80 mt-3">
                         {{ $next->service?->name ?? 'Consultation' }} with {{ $next->doctor->full_name }}
                         <span class="font-mono text-xs text-mint/60 ml-2">{{ $next->reference }}</span>
                     </p>
@@ -37,7 +37,7 @@
         <div class="card-flat p-8 flex flex-wrap items-center justify-between gap-6">
             <div>
                 <h2 class="font-display text-xl font-semibold">No appointment booked</h2>
-                <p class="text-sm text-pine/60 mt-1.5">Most adults need a check-up every six months.</p>
+                <p class="text-sm text-pine/70 mt-1.5">Most adults need a check-up every six months.</p>
             </div>
             <a href="{{ route('patient.appointments.create') }}" class="btn btn-primary">Book a visit</a>
         </div>

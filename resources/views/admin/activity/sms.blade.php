@@ -12,7 +12,7 @@
         @endif
     </div>
 
-    <form method="GET" class="card-flat p-4 flex flex-wrap gap-3 items-end">
+    <form method="GET" class="card-flat filter-bar p-4 flex flex-wrap gap-3 items-end">
         <div>
             <label class="field-label">Purpose</label>
             <select name="purpose" class="field !py-2 !text-sm">
@@ -35,7 +35,7 @@
     </form>
 
     <x-ui.panel :padded="false">
-        <div class="overflow-x-auto">
+        <div class="table-scroll">
             <table class="data-table">
                 <thead><tr><th>Sent</th><th>To</th><th>Purpose</th><th>Message</th><th>Status</th></tr></thead>
                 <tbody>

@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title', 'Gallery — Ivora Dental Studio')
+@section('title', 'Gallery Zynera Dental Solution')
 
 @section('content')
 <x-site.page-hero
@@ -10,7 +10,7 @@
 
 <section class="py-14">
     <div class="max-w-shell mx-auto px-5">
-        <div class="flex flex-wrap gap-2 mb-10">
+        <div class="reveal flex flex-wrap gap-2 mb-10">
             <a href="{{ route('gallery') }}" class="btn btn-sm {{ !$active ? 'btn-primary' : 'btn-ghost' }}">Everything</a>
             @foreach($categories as $category)
                 <a href="{{ route('gallery', ['category' => $category]) }}"

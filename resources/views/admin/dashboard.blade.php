@@ -27,9 +27,21 @@
                    icon="M5 3h10v14l-2.5-1.5L10 17l-2.5-1.5L5 17z" />
     </div>
 
-    @if($personal)
-        <div class="card-flat p-5 flex flex-wrap items-center gap-8">
-            <p class="eyebrow text-pine/45">Your chair</p>
+ @if($personal)
+    <div class="stat-card card-flat p-6">
+        <div class="flex flex-wrap items-center gap-4 mb-5">
+            <span class="chip-icon">
+                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 5h12v12H4zM7 3v4M13 3v4M4 9h12"/>
+                </svg>
+            </span>
+            <div>
+                <p class="font-display font-semibold text-base leading-none">Your chair</p>
+                <p class="text-xs text-pine/50 mt-1">Your own numbers at a glance</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-5 pt-5 border-t border-pine/8">
             @foreach([
                 'Today' => $personal['today'],
                 'This week' => $personal['week'],
@@ -37,37 +49,38 @@
                 'Awaiting confirmation' => $personal['pending'],
             ] as $label => $value)
                 <div>
-                    <p class="font-display text-2xl font-bold leading-none">{{ $value }}</p>
-                    <p class="text-xs text-pine/55 mt-1">{{ $label }}</p>
+                    <p class="stat-figure">{{ $value }}</p>
+                    <p class="text-xs text-pine/55 mt-1.5 leading-snug">{{ $label }}</p>
                 </div>
             @endforeach
         </div>
-    @endif
+    </div>
+@endif
 
     {{-- Charts --}}
     <div class="grid lg:grid-cols-[1.5fr_1fr] gap-6">
-        <x-ui.panel title="Appointments, last 30 days" subtitle="Booked visits per day">
+        <x-ui.panel accent title="Appointments, last 30 days" subtitle="Booked visits per day">
             <div class="h-[260px]"><canvas id="trendChart"></canvas></div>
         </x-ui.panel>
 
-        <x-ui.panel title="Status split" subtitle="Across the whole diary">
+        <x-ui.panel accent title="Status split" subtitle="Across the whole diary">
             <div class="h-[260px]"><canvas id="statusChart"></canvas></div>
         </x-ui.panel>
     </div>
 
     <div class="grid lg:grid-cols-[1.5fr_1fr] gap-6">
-        <x-ui.panel title="Revenue, last 12 months" subtitle="Payments received">
+        <x-ui.panel accent title="Revenue, last 12 months" subtitle="Payments received">
             <div class="h-[240px]"><canvas id="revenueChart"></canvas></div>
         </x-ui.panel>
 
-        <x-ui.panel title="Most-booked treatments">
+        <x-ui.panel accent title="Most-booked treatments">
             <div class="h-[240px]"><canvas id="servicesChart"></canvas></div>
         </x-ui.panel>
     </div>
 
     {{-- Today's list + pending --}}
     <div class="grid lg:grid-cols-[1.4fr_1fr] gap-6">
-        <x-ui.panel title="Today's chair list" :subtitle="$today->count().' appointment(s)'" :padded="false">
+        <x-ui.panel accent title="Today's chair list" :subtitle="$today->count().' appointment(s)'" :padded="false">
             <x-slot:actions>
                 @permission('appointments.export')
                     <a href="{{ route('admin.appointments.daySheet') }}" class="btn btn-ghost btn-sm">Print day sheet</a>
@@ -92,7 +105,7 @@
         </x-ui.panel>
 
         <div class="space-y-6">
-            <x-ui.panel title="Awaiting confirmation" :padded="false">
+            <x-ui.panel accent title="Awaiting confirmation" :padded="false">
                 @forelse($pending as $appointment)
                     <div class="flex items-center gap-3 px-5 py-3 border-b border-pine/6 last:border-0">
                         <div class="flex-1 min-w-0">
@@ -113,7 +126,7 @@
             </x-ui.panel>
 
             @permission('messages.view')
-                <x-ui.panel title="New enquiries" :padded="false">
+                <x-ui.panel accent title="New enquiries" :padded="false">
                     <x-slot:actions>
                         <a href="{{ route('admin.inbox.index') }}" class="btn btn-ghost btn-sm">Inbox</a>
                     </x-slot:actions>
@@ -133,7 +146,7 @@
     {{-- Lower row --}}
     <div class="grid lg:grid-cols-3 gap-6">
         @permission('patients.view')
-            <x-ui.panel title="Newest patients" :padded="false">
+            <x-ui.panel accent title="Newest patients" :padded="false">
                 @foreach($newPatients as $patient)
                     <a href="{{ route('admin.patients.show', $patient) }}" class="flex items-center gap-3 px-5 py-3 border-b border-pine/6 last:border-0 hover:bg-mint/12 transition">
                         <img src="{{ $patient->avatar_url }}" alt="" class="w-8 h-8 rounded-full object-cover">
@@ -147,7 +160,7 @@
         @endpermission
 
         @permission('billing.view')
-            <x-ui.panel title="Unpaid invoices" :padded="false">
+            <x-ui.panel accent title="Unpaid invoices" :padded="false">
                 @foreach($unpaid as $invoice)
                     <a href="{{ route('admin.billing.show', $invoice) }}" class="flex items-center justify-between gap-3 px-5 py-3 border-b border-pine/6 last:border-0 hover:bg-mint/12 transition">
                         <div class="min-w-0">
@@ -161,7 +174,7 @@
         @endpermission
 
         @permission('activity.view')
-            <x-ui.panel title="Recent activity" :padded="false">
+            <x-ui.panel accent title="Recent activity" :padded="false">
                 @foreach($activity as $log)
                     <div class="px-5 py-2.5 border-b border-pine/6 last:border-0">
                         <p class="text-sm truncate">{{ $log->description }}</p>

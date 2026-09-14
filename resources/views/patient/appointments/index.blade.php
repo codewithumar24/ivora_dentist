@@ -35,7 +35,7 @@
 
                 <div class="flex-1 min-w-[200px]">
                     <p class="font-medium">{{ $appointment->service?->name ?? 'Consultation' }}</p>
-                    <p class="text-sm text-pine/60 mt-0.5">
+                    <p class="text-sm text-pine/70 mt-0.5">
                         {{ $appointment->doctor->full_name }} · {{ $appointment->time_label }}
                     </p>
                     <p class="font-mono text-xs text-pine/40 mt-1">{{ $appointment->reference }}</p>

@@ -39,33 +39,38 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'phone' => ['nullable', 'string', 'max:32', 'unique:users,phone'],
-            'role_id' => ['required', 'exists:roles,id'],
-            'password' => ['nullable', 'confirmed', Password::min(8)],
-        ]);
+  public function store(Request $request)
+{
+    $data = $request->validate([
+        'name' => ['required', 'string', 'max:120'],
+        'email' => ['required', 'email', 'unique:users,email'],
+        'phone' => ['nullable', 'string', 'max:32', 'unique:users,phone'],
+        'role_id' => ['required', 'exists:roles,id'],
+        'password' => ['nullable', 'confirmed', Password::min(8)],
+        'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+    ]);
 
-        $password = $data['password'] ?? Str::password(12);
+    $password = $data['password'] ?? Str::password(12);
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'] ?? null,
-            'role_id' => $data['role_id'],
-            'password' => $password,
-            'status' => 'active',
-            'email_verified_at' => now(),
-        ]);
+    $user = User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'phone' => $data['phone'] ?? null,
+        'role_id' => $data['role_id'],
+        'password' => $password,
+        'status' => 'active',
+        'email_verified_at' => now(),
+    ]);
 
-        Mail::to($user->email)->queue(new WelcomeToIvora($user, $password));
-        ActivityLog::record('created', "Created staff account for {$user->name}", $user);
-
-        return redirect()->route('admin.users.index')->with('status', 'Team member added and emailed their login.');
+    if ($request->hasFile('avatar')) {
+        $user->update(['avatar' => $request->file('avatar')->store('avatars', 'public')]);
     }
+
+    Mail::to($user->email)->queue(new WelcomeToIvora($user, $password));
+    ActivityLog::record('created', "Created staff account for {$user->name}", $user);
+
+    return redirect()->route('admin.users.index')->with('status', 'Team member added and emailed their login.');
+}
 
     public function edit(User $user)
     {
@@ -75,29 +80,40 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'unique:users,email,'.$user->id],
-            'phone' => ['nullable', 'string', 'max:32', 'unique:users,phone,'.$user->id],
-            'role_id' => ['required', 'exists:roles,id'],
-            'status' => ['required', 'in:active,suspended,pending'],
-            'password' => ['nullable', 'confirmed', Password::min(8)],
-        ]);
+   public function update(Request $request, User $user)
+{
+    $data = $request->validate([
+        'name' => ['required', 'string', 'max:120'],
+        'email' => ['required', 'email', 'unique:users,email,'.$user->id],
+        'phone' => ['nullable', 'string', 'max:32', 'unique:users,phone,'.$user->id],
+        'role_id' => ['required', 'exists:roles,id'],
+        'status' => ['required', 'in:active,suspended,pending'],
+        'password' => ['nullable', 'confirmed', Password::min(8)],
+        'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+    ]);
 
-        // The owner seat cannot be demoted by anyone but itself.
-        if ($user->isOwner() && auth()->id() !== $user->id) {
-            return back()->withErrors(['role_id' => 'Only the clinic owner can change the owner account.']);
+    // The owner seat cannot be demoted by anyone but itself.
+    if ($user->isOwner() && auth()->id() !== $user->id) {
+        return back()->withErrors(['role_id' => 'Only the clinic owner can change the owner account.']);
+    }
+
+    $user->update(collect($data)->except(['avatar'])->filter(fn ($v, $k) => $k !== 'password' || filled($v))->all());
+    $user->forgetPermissionCache();
+
+    if ($request->hasFile('avatar')) {
+        // Replaced photos are dead weight — remove the old one rather than
+        // letting storage/app/public/avatars grow forever.
+        if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
         }
 
-        $user->update(collect($data)->filter(fn ($v, $k) => $k !== 'password' || filled($v))->all());
-        $user->forgetPermissionCache();
-
-        ActivityLog::record('updated', "Updated staff account {$user->name}", $user);
-
-        return back()->with('status', 'Account saved.');
+        $user->update(['avatar' => $request->file('avatar')->store('avatars', 'public')]);
     }
+
+    ActivityLog::record('updated', "Updated staff account {$user->name}", $user);
+
+    return back()->with('status', 'Account saved.');
+}
 
     /** The per-person override screen: grant or revoke single permissions. */
     public function permissions(User $user)
@@ -128,15 +144,19 @@ class UserController extends Controller
         return back()->with('status', 'Permissions saved. They apply the next time this person loads a page.');
     }
 
-    public function destroy(User $user)
-    {
-        if ($user->isOwner()) {
-            return back()->withErrors(['user' => 'The owner account cannot be deleted.']);
-        }
-
-        $user->delete();
-        ActivityLog::record('deleted', "Removed staff account {$user->name}", $user);
-
-        return redirect()->route('admin.users.index')->with('status', 'Team member removed.');
+   public function destroy(User $user)
+{
+    if ($user->isOwner()) {
+        return back()->withErrors(['user' => 'The owner account cannot be deleted.']);
     }
+
+    if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+        \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+    }
+
+    $user->delete();
+    ActivityLog::record('deleted', "Removed staff account {$user->name}", $user);
+
+    return redirect()->route('admin.users.index')->with('status', 'Team member removed.');
+}
 }

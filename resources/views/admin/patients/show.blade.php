@@ -112,7 +112,7 @@
                             <a href="{{ route('admin.records.show', $record) }}" class="btn btn-ghost btn-sm">Open</a>
                         @endpermission
                     </div>
-                    <p class="text-sm text-pine/75 leading-relaxed">{{ Str::limit($record->treatment_performed, 200) }}</p>
+                    <p class="text-[0.95rem] text-pine/75 leading-relaxed">{{ Str::limit($record->treatment_performed, 200) }}</p>
                 </x-ui.panel>
             @empty
                 <x-ui.panel><x-ui.empty title="No clinical notes" message="Notes appear after treatment." /></x-ui.panel>

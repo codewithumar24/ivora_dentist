@@ -7,10 +7,19 @@
 @endsection
 
 @section('content')
-<form action="{{ route('admin.users.update', $user) }}" method="POST" class="max-w-2xl space-y-5">
+<form action="{{ route('admin.users.update', $user) }}" method="POST"enctype="multipart/form-data" class="max-w-2xl space-y-5">
     @csrf @method('PUT')
 
     <x-ui.panel title="Account">
+        <div>
+    <label class="field-label">Profile photo</label>
+    <div class="flex items-center gap-4">
+        <img src="{{ $user->avatar_url }}" alt="" class="w-14 h-14 rounded-full object-cover border border-pine/12">
+        <input type="file" name="avatar" accept="image/*" class="field !py-2 flex-1">
+    </div>
+    <p class="text-xs text-pine/50 mt-1.5">Leave blank to keep the current photo.</p>
+    @error('avatar') <p class="field-error">{{ $message }}</p> @enderror
+</div>
         <div class="space-y-5">
             <x-ui.field label="Full name" name="name" :value="$user->name" required />
             <div class="grid sm:grid-cols-2 gap-5">

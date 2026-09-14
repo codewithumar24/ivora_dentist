@@ -12,7 +12,7 @@
                 <p class="eyebrow text-pine/45 mb-1.5">Outstanding balance</p>
                 <p class="font-display text-3xl font-bold">{{ $currency }} {{ number_format($outstanding) }}</p>
             </div>
-            <p class="text-sm text-pine/60 max-w-xs">Payable at reception by cash, card or bank transfer.</p>
+            <p class="text-sm text-pine/70 max-w-xs">Payable at reception by cash, card or bank transfer.</p>
         </div>
     @endif
 
